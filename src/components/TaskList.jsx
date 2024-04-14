@@ -3,7 +3,7 @@ import Task from "./Task";
 import { useDispatch, useSelector } from "react-redux";
 import { updateTaskState } from "../lib/store";
 
-export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
+export default function TaskList() {
   // We're retrieving our state from the store
   const tasks = useSelector((state) => {
     const tasksInOrder = [
@@ -41,7 +41,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     ...tasks.filter((t) => t.state !== "TASK_PINNED"),
   ];
   console.log(tasksInOrder);
-  if (loading) {
+  if (status === 'loading') {
     return (
       <div className="list-items" data-testid="loading" key={"loading"}>
         {LoadingRow}
@@ -66,10 +66,14 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
   return (
     <div className="list-items">
-      {tasksInOrder.map((task) => {
-        return <Task key={task.id} task={task} onPinTask={(task) => pinTask(task)}
-        onArchiveTask={(task) => archiveTask(task)} />;
-      })}
+      {tasks.map((task) => (
+        <Task
+          key={task.id}
+          task={task}
+          onPinTask={(task) => pinTask(task)}
+          onArchiveTask={(task) => archiveTask(task)}
+        />
+      ))}
     </div>
   );
 }
