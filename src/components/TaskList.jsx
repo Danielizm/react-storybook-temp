@@ -36,11 +36,6 @@ export default function TaskList() {
       </span>
     </div>
   );
-  const tasksInOrder = [
-    ...tasks.filter((t) => t.state === "TASK_PINNED"),
-    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
-  ];
-  console.log(tasksInOrder);
   if (status === 'loading') {
     return (
       <div className="list-items" data-testid="loading" key={"loading"}>
